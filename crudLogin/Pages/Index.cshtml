@@ -1,0 +1,106 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        .login-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-form {
+            width: 300px;
+            padding: 40px;
+            background: linear-gradient(to bottom, #002b5c, #00498c);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .form-control {
+            background: linear-gradient(to bottom, #002b5c, #00498c);
+            border: none;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .form-control::placeholder {
+            color: #ccc;
+        }
+
+        .btn-login {
+            background: linear-gradient(to bottom, #002b5c, #00498c);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(to bottom, #00498c, #002b5c);
+        }
+
+        .text-danger {
+            color: #ff6b6b !important;
+            font-size: 0.8rem;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <div class="login-form">
+        <div class="logo-container">
+            <img src="~/images/login_screen.png" alt="Churrasco Logo" class="logo" />
+            <h2>CHURRASCO</h2>
+        </div>
+        <!-- Modificamos el form para usar asp-controller y asp-action -->
+        <form method="post" asp-controller="Account" asp-action="Login">
+            <div class="form-group">
+                <input type="text" class="form-control" name="Username" placeholder="Username" required />
+                @if (TempData["EmailError"] != null)
+                {
+                    <span class="text-danger">@TempData["EmailError"]</span>
+                }
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="Password" placeholder="Password" required />
+                @if (TempData["PasswordError"] != null)
+                {
+                    <span class="text-danger">@TempData["PasswordError"]</span>
+                }
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn-login">Log in</button>
+            </div>
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="text-danger text-center mt-3">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+        </form>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
